@@ -1,6 +1,6 @@
 export class ResultSync {
   constructor({baseUrl,token,role='student',storage=localStorage,fetcher=globalThis.fetch.bind(globalThis),onChange=()=>{},onStatus=()=>{}}){
-    this.baseUrl=baseUrl.replace(/\/$/,'');this.token=token;this.role=role;this.storage=storage;this.fetcher=fetcher;this.onChange=onChange;this.onStatus=onStatus;this.status='loading';this.pending=[];this.remote={answers:{},history:[]};this.key='math-shared-v1-'+token.slice(0,18);this.eventPrefix=this.key+'-event-';this.running=null;this.activeEvent=null;
+    this.baseUrl=baseUrl.replace(/\/$/,'');this.token=token;this.role=role;this.storage=storage;this.fetcher=fetcher;this.onChange=onChange;this.onStatus=onStatus;this.status='loading';this.pending=[];this.remote={answers:{},history:[]};this.key='math-shared-v1-'+(token.slice(0,18)||'student');this.eventPrefix=this.key+'-event-';this.running=null;this.activeEvent=null;
     try{const cached=JSON.parse(storage.getItem(this.key)||'{}');if(cached.remote?.answers)this.remote=cached.remote;for(let i=0;i<storage.length;i++){const key=storage.key(i);if(!key?.startsWith(this.eventPrefix))continue;try{const e=JSON.parse(storage.getItem(key));if(/^[-_a-zA-Z0-9]{12,100}$/.test(e?.eventId)&&/^(?:a(?:[1-9]|10)|g[1-7])$/.test(e?.taskId)&&typeof e.input==='string'&&e.input.length<=100&&typeof e.checked==='boolean'&&Number.isSafeInteger(e.baseRevision)&&e.baseRevision>=0)this.pending.push(e);}catch{}}this.pending.sort((a,b)=>(a.order||0)-(b.order||0));}catch{}
     if(role==='teacher')this.pending=[];
   }
@@ -9,7 +9,7 @@ export class ResultSync {
   saveEvent(event){try{this.storage.setItem(this.eventPrefix+event.eventId,JSON.stringify(event));}catch{this.onStatus('storage-error');}}
   snapshot(){const answers={...this.remote.answers};for(const e of this.pending)answers[e.taskId]={...answers[e.taskId],input:e.input,checked:e.checked};return {...this.remote,answers};}
   emit(){this.persist();this.onChange(this.snapshot());}
-  async request(path,options={}){const response=await this.fetcher(this.baseUrl+path,{...options,cache:'no-store',headers:{Authorization:'Bearer '+this.token,...(options.method?{'Content-Type':'application/json'}:{})}});let data;try{data=await response.json();}catch{throw new Error('unavailable');}if(!response.ok){const error=new Error(data?.error||'unavailable');error.status=response.status;error.state=data;throw error;}return data;}
+  async request(path,options={}){const response=await this.fetcher(this.baseUrl+path,{...options,cache:'no-store',signal:AbortSignal.timeout(12000),headers:{...(this.token?{Authorization:'Bearer '+this.token}:{}),...(options.method?{'Content-Type':'application/json'}:{})}});let data;try{data=await response.json();}catch{throw new Error('unavailable');}if(!response.ok){const error=new Error(data?.error||'unavailable');error.status=response.status;error.state=data;throw error;}return data;}
   async start(){try{this.remote=await this.request('/api/state');this.emit();this.setStatus(this.pending.length?'pending':'saved');if(this.pending.length)await this.flush();}catch(error){this.emit();this.setStatus(error.status===401?'invalid-link':'offline');}return this.snapshot();}
   enqueue(taskId,input,checked){
     if(this.role!=='student')throw new Error('read-only');
@@ -29,12 +29,4 @@ export class ResultSync {
     })();try{return await this.running;}finally{this.running=null;}
   }
   async refresh(){if(this.pending.length)return this.flush();if(this.running)return;try{this.remote=await this.request('/api/state');this.emit();this.setStatus('saved');}catch(error){this.setStatus(error.status===401?'invalid-link':'offline');}}
-}
-
-export function readAccess(storage=localStorage,hash=location.hash){
-  const query=new URLSearchParams(hash.replace(/^#/,'').replace(/^(algebra|geometry)(?:&|$)/,''));
-  const token=query.get('access'),role=query.get('view')==='teacher'?'teacher':'student';
-  if(token&&/^[A-Za-z0-9_-]{43}$/.test(token)){const access={token,role};try{storage.setItem('math-access-v1',JSON.stringify(access));}catch{}return access;}
-  try{const access=JSON.parse(storage.getItem('math-access-v1')||'null');if(/^[A-Za-z0-9_-]{43}$/.test(access?.token)&&['student','teacher'].includes(access?.role))return access;}catch{}
-  return null;
 }

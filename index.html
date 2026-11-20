@@ -10,11 +10,19 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./game.css">
   <link rel="stylesheet" href="./results.css">
+  <link rel="stylesheet" href="./account.css">
   <script type="module" src="./app.js"></script>
 </head>
 <body>
-  <header class="topbar"><a class="wordmark" href="#algebra">Математика</a><span>7 класс</span></header>
-  <main>
+  <header class="topbar"><a class="wordmark" href="#algebra">Математика</a><div class="account-bar"><span id="account-name">7 класс</span><button id="logout" type="button" hidden>Выйти</button></div></header>
+  <section id="account-panel" class="account-panel" aria-labelledby="account-title">
+    <div class="account-hero"><div><p class="meta">Математика · 7 класс</p><h1 id="account-title">Выбери<br>кабинет<span class="orange">.</span></h1><p>Домашние задания по алгебре и геометрии.</p></div><div class="account-art" aria-hidden="true"></div></div>
+    <div class="account-options">
+      <article class="account-card student-card"><h2>Ученик</h2><p>Решай задания, проверяй ответы<br>и проходи уровень.</p><button id="student-entry" class="entry-button" type="button">Начать без пароля</button></article>
+      <article class="account-card"><h2>Администратор</h2><p>Смотри ответы ученика,<br>ошибки и историю попыток.</p><button id="teacher-entry" class="entry-button secondary-entry" type="button">Войти с паролем</button><form id="admin-login" hidden><label for="admin-password">Пароль администратора</label><div class="admin-fields"><input id="admin-password" name="password" type="password" required maxlength="200" autocomplete="current-password"><button id="admin-submit" class="entry-button" type="submit">Войти</button></div></form></article>
+    </div><p id="login-error" class="login-error" role="alert"></p>
+  </section>
+  <main id="learning" hidden>
     <section class="intro"><div><h1 id="page-title">Квест:<br>домашка<span class="orange">.</span></h1><p id="page-description">Строй решение в тетради.<br> Проверяй ответы и проходи уровень.</p></div><div class="intro-art" aria-hidden="true"></div></section>
     <section id="sync-panel" class="sync-panel" aria-label="Сохранение результатов" hidden><p id="sync-status" role="status" aria-live="polite"></p><button id="sync-retry" type="button" hidden>Повторить</button><button id="refresh-results" type="button" hidden>Обновить результаты</button></section>
     <nav class="subjects" aria-label="Предмет"><button type="button" data-subject="algebra" aria-pressed="true">Алгебра</button><button type="button" data-subject="geometry" aria-pressed="false">Геометрия</button></nav>
