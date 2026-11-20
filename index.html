@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#FD612D">
+  <meta name="description" content="Домашние задания по математике для 7 класса. Алгебра и геометрия с проверкой ответов.">
+  <title>Домашние задания — математика 7 класс</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="wordmark" href="#algebra">Математика</a><span>7 класс</span></header>
+  <main>
+    <section class="intro"><div><h1>Домашние<br>задания<span class="orange">.</span></h1><p>Решай в тетради.<br> Вводи ответ и проверяй себя.</p></div><div class="intro-art" aria-hidden="true"><span class="art-a">a²</span><span class="art-plus">+</span><span class="art-angle">∠</span></div></section>
+    <nav class="subjects" aria-label="Предмет"><button type="button" data-subject="algebra" aria-pressed="true">Алгебра</button><button type="button" data-subject="geometry" aria-pressed="false">Геометрия</button></nav>
+    <div class="workspace">
+      <aside class="homeworks"><h2>Домашние работы</h2><nav aria-label="Номер домашней работы"><button class="homework active" type="button" aria-current="page"><span>01</span>Домашняя № 1</button><button class="homework" type="button" disabled><span>02</span>Скоро</button><button class="homework" type="button" disabled><span>03</span>Скоро</button><button class="homework" type="button" disabled><span>04</span>Скоро</button><button class="homework" type="button" disabled><span>05</span>Скоро</button></nav><p class="save-note">Ответы сохраняются<br>в этом браузере.</p></aside>
+      <section class="assignment" aria-labelledby="assignment-title"><div class="assignment-head"><div><p id="task-meta" class="meta"></p><h2 id="assignment-title"></h2></div><button type="button" id="reset" class="reset">Начать заново</button></div><div class="progress-row"><span id="progress-text" role="status" aria-live="polite"></span><progress id="progress" value="0" max="10" aria-label="Правильно решено"></progress></div><p class="answer-help">Ответ можно записать дробью <b>3/4</b> или числом <b>0,75</b>. Единицы писать не нужно.</p><div id="tasks" class="tasks"></div><p id="completion" class="completion" hidden>Всё верно! Домашняя работа выполнена.</p></section>
+    </div>
+  </main>
+  <footer>Математика. По одной задаче за раз.</footer>
+  <noscript>Для проверки ответов включи JavaScript в браузере.</noscript>
+</body>
+</html>

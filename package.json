@@ -1,0 +1,1 @@
+{"name":"math-homework","private":true,"type":"module","scripts":{"test":"node --test --test-isolation=none tests/checker.test.mjs"}}
