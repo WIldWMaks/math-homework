@@ -1,0 +1,71 @@
+/* Original block-world skin. The maths and controls stay in the foreground. */
+:root{--orange:#fd612d;--blue:#afd9e7;--dark:#292929;--line:#292929;--muted:#565656;--block-shadow:5px 5px 0 var(--dark)}
+body{background-color:#fff;background-image:linear-gradient(#afd9e733 1px,transparent 1px),linear-gradient(90deg,#afd9e733 1px,transparent 1px);background-size:32px 32px}
+.topbar,main,footer{max-width:1240px}
+.topbar{border-bottom:2px solid var(--dark);padding-top:24px;padding-bottom:22px}
+.wordmark{display:inline-flex;align-items:center;gap:12px;font-size:23px;letter-spacing:-.8px}
+.wordmark:before{content:"";width:22px;height:22px;display:inline-block;background:var(--orange);border:2px solid var(--dark);box-shadow:3px 3px 0 var(--dark);transform:rotate(-8deg)}
+.topbar>span{padding:7px 12px;border:2px solid var(--dark);background:var(--blue);font-weight:700;box-shadow:3px 3px 0 var(--dark)}
+.intro{position:relative;padding:32px 0 34px;gap:16px;min-height:345px}
+.intro>div:first-child{position:relative;z-index:1;min-width:0;flex:1}
+.intro h1{font-size:clamp(48px,5.7vw,75px);line-height:1.01;letter-spacing:-3.4px;margin-bottom:22px}
+.intro p{font-size:18px;line-height:1.5;max-width:360px}
+.intro-art{display:block;flex:0 1 550px;min-width:0;height:310px;background:transparent url('./world.svg') center/contain no-repeat;overflow:visible}
+.intro-art span{display:none}
+.subjects{gap:12px;border-bottom:2px solid var(--dark);padding-bottom:16px}
+.subjects button{padding:13px 24px;font-size:24px;color:var(--dark);background:#fff;border:2px solid var(--dark);box-shadow:4px 4px 0 var(--dark);transition:transform .14s,box-shadow .14s,background .14s}
+.subjects button[aria-pressed=true]{background:var(--orange);color:var(--dark)}
+.subjects button[aria-pressed=true]:after{display:none}
+.subjects button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--dark)}
+.subjects button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--dark)}
+.workspace{grid-template-columns:202px minmax(0,1fr);gap:32px;padding-top:30px}
+.homeworks h2{font-size:14px;font-weight:700;color:var(--dark);margin:5px 0 18px}
+.homeworks nav{gap:12px}
+.homework{border:2px solid var(--dark);gap:11px;padding:14px 12px;color:var(--dark);background:#fff;box-shadow:3px 3px 0 var(--dark);font-size:15px;min-height:50px}
+.homework span{font-weight:700}
+.homework.active{background:var(--blue)}
+.homework:disabled{color:#626262;border-color:#b7c9cf;box-shadow:3px 3px 0 #d4e3e8;background:#fff}
+.save-note{margin:26px 0;font-size:14px;line-height:1.6}
+.assignment{min-width:0}
+.assignment-head h2{font-size:30px;line-height:1.16;max-width:620px;margin-top:7px;margin-bottom:20px;letter-spacing:-.8px}
+.meta{font-size:14px;color:var(--muted);line-height:1.5}
+.reset{font-size:14px;line-height:1.5;padding:4px 0}
+.progress-row{gap:18px;margin-bottom:18px}
+.progress-row span{font-weight:700;font-size:14px}
+progress{height:14px;border:2px solid var(--dark);background:#fff;overflow:hidden}
+progress::-webkit-progress-bar{background:#fff}
+progress::-webkit-progress-value{background:var(--blue)}
+progress::-moz-progress-bar{background:var(--blue)}
+.answer-help{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:24px}
+.answer-help b{font-weight:700}
+.tasks{gap:20px}
+.task{position:relative;border:2px solid var(--dark);padding:19px 18px 12px;background:#fff;box-shadow:var(--block-shadow)}
+.task-number{color:var(--dark);font-size:14px;font-weight:700;padding-bottom:12px;border-bottom:1px solid #afd9e7;margin-bottom:0;min-height:32px}
+.task-number>span:first-child{display:inline-flex;align-items:center;gap:8px}
+.task-number>span:first-child:before{content:"";width:8px;height:8px;background:var(--blue);border:1px solid var(--dark)}
+.task-status{font-size:17px;font-weight:700}
+.task .expression{min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.task math{font-size:30px;min-height:122px;padding:20px 1px 24px;max-width:100%;overflow:visible}
+.task-prompt{font-size:17px;line-height:1.55;margin-top:17px;min-height:108px}
+.answer-form{gap:8px;margin-top:5px;align-items:stretch}
+.input-wrap{min-width:90px}
+.answer-input{border:2px solid var(--dark);padding:11px 30px 11px 11px;height:47px;font-size:17px;background:#fff}
+.answer-input:focus{background:#f5fbfd}
+.answer-input::placeholder{color:#676767}
+.check{border:2px solid var(--dark);background:var(--dark);color:#fff;font-size:15px;font-weight:700;padding:10px 12px;min-height:47px;transition:background .12s,transform .12s}
+.check:hover{background:var(--orange);color:var(--dark)}
+.check:active{transform:translateY(2px)}
+.feedback{font-size:14px;line-height:1.45;min-height:41px;margin:11px 0 0;color:var(--muted)}
+.task.checked-correct{border-color:var(--dark);box-shadow:5px 5px 0 var(--blue)}
+.checked-correct .task-number>span:first-child:before{background:var(--orange)}
+.task.checked-wrong{border-color:var(--orange);box-shadow:5px 5px 0 var(--orange)}
+.completion{border:2px solid var(--dark);box-shadow:var(--block-shadow);background:var(--blue);font-size:20px;padding:23px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--dark);outline-offset:5px}
+footer{padding-top:46px;padding-bottom:28px;font-size:14px;color:var(--muted)}
+@media(min-width:761px) and (max-width:1050px){.workspace{grid-template-columns:174px minmax(0,1fr);gap:24px}.intro-art{flex-basis:440px;height:290px}.intro h1{font-size:60px}.task{padding:16px 13px 11px}.task math{font-size:28px}.answer-form{flex-direction:column}.input-wrap{min-width:0}.check{width:100%}.homework{font-size:14px;padding-left:10px;padding-right:10px}.assignment-head{display:block}.reset{margin-bottom:17px}}
+@media(max-width:760px){.topbar,main,footer{padding-left:22px;padding-right:22px}.topbar{padding-top:20px;padding-bottom:18px}.wordmark{font-size:21px;gap:9px}.wordmark:before{width:19px;height:19px}.topbar>span{font-size:14px;padding:6px 9px}.intro{min-height:0;align-items:center;padding:27px 0 28px;gap:12px}.intro h1{font-size:clamp(43px,6.9vw,58px);letter-spacing:-2.2px;margin-bottom:18px}.intro p{font-size:16px}.intro-art{flex:0 1 44%;height:230px}.subjects{gap:12px;padding-bottom:15px}.subjects button{font-size:23px;padding:11px 19px}.workspace{display:block;padding-top:22px}.homeworks nav{gap:10px;padding-bottom:8px;margin-bottom:23px;overflow-x:auto}.homeworks h2,.save-note{display:none}.homework{min-height:45px;min-width:46px;padding:10px 13px;font-size:0;gap:0;box-shadow:2px 2px 0 var(--dark)}.homework:disabled{box-shadow:2px 2px 0 #d4e3e8}.homework span{font-size:15px}.homework.active{border-color:var(--dark);font-size:15px;gap:8px}.homework.active span{display:none}.assignment-head{display:flex;gap:15px}.assignment-head h2{font-size:28px;margin-bottom:18px}.tasks{gap:18px}.task{padding:18px 15px 11px}.task math{font-size:30px}.task-prompt{min-height:0}.answer-form{flex-direction:column;gap:8px}.check{width:100%}.progress-row{gap:15px}.reset{font-size:14px;white-space:normal;min-width:100px;text-align:right}}
+@media(max-width:520px){.topbar,main,footer{padding-left:18px;padding-right:18px}.intro{display:block;padding:28px 0 20px}.intro h1{font-size:clamp(42px,11vw,57px);letter-spacing:-2.1px;margin-bottom:16px}.intro p{font-size:16px;max-width:330px}.intro p br{display:none}.intro-art{display:block;width:100%;height:177px;margin:7px auto -4px;background-position:center;background-size:auto 200px}.subjects{gap:11px}.subjects button{font-size:21px;padding:11px 15px;flex:1}.homework{padding:10px 11px;min-width:41px}.homework.active{padding-left:13px;padding-right:13px;font-size:14px}.homeworks nav{gap:8px}.assignment-head{display:block}.assignment-head h2{font-size:28px;margin-bottom:12px}.reset{min-width:0;text-align:left;margin-bottom:17px}.progress-row{gap:12px}.progress-row span{font-size:14px}.tasks{grid-template-columns:1fr;gap:19px}.task{padding:18px 18px 11px;box-shadow:4px 4px 0 var(--dark)}.task math{font-size:34px;min-height:123px;padding-top:21px;padding-bottom:24px}.task-prompt{font-size:18px;line-height:1.5}.answer-form{flex-direction:row;gap:8px}.input-wrap{min-width:85px}.check{width:auto;font-size:15px;padding-left:13px;padding-right:13px}.answer-input{font-size:18px}.feedback{min-height:36px}.completion{font-size:19px;padding:20px}footer{padding-top:35px;line-height:1.6}}
+@media(max-width:360px){.topbar,main,footer{padding-left:15px;padding-right:15px}.wordmark{font-size:19px}.topbar>span{padding:6px 8px}.intro-art{height:155px;background-size:auto 180px}.subjects button{font-size:20px;padding:11px 10px}.homeworks nav{gap:7px}.homework{min-width:35px;padding:10px 9px}.homework.active{padding-left:10px;padding-right:10px}.task{padding:16px 13px 10px}.task math{font-size:31px}.check{padding-left:10px;padding-right:10px;font-size:14px}.answer-input{font-size:17px}.assignment-head h2{font-size:26px}}
+@media(min-width:761px) and (max-width:900px){.tasks{grid-template-columns:1fr}.answer-form{flex-direction:row}.check{width:auto}.task math{font-size:32px}}
+@media(min-width:521px) and (max-width:640px){.tasks{grid-template-columns:1fr}.answer-form{flex-direction:row}.check{width:auto}.task math{font-size:34px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
