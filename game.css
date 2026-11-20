@@ -69,3 +69,4 @@ footer{padding-top:46px;padding-bottom:28px;font-size:14px;color:var(--muted)}
 @media(min-width:761px) and (max-width:900px){.tasks{grid-template-columns:1fr}.answer-form{flex-direction:row}.check{width:auto}.task math{font-size:32px}}
 @media(min-width:521px) and (max-width:640px){.tasks{grid-template-columns:1fr}.answer-form{flex-direction:row}.check{width:auto}.task math{font-size:34px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+.workspace.diagnostic {grid-template-columns: minmax(0,1fr)} @media(max-width:520px){.subjects button{font-size:18px;padding:10px 7px;min-width:0}.subjects{gap:7px}}
