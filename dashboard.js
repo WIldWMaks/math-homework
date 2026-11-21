@@ -140,17 +140,24 @@ function renderTeacherSummary(){
 
 $('#materials-tab').hidden=!teacher;
 if(teacher){
- for(const [slug,title,theme] of [['algebra','Алгебра','Умножение многочленов'],['geometry','Геометрия','Признаки равенства треугольников']]){
+ for(const [slug,title,themes] of [
+  ['algebra','Алгебра',['Умножение многочленов','Общий множитель и группировка']],
+  ['geometry','Геометрия',['Признаки равенства треугольников','Равнобедренный треугольник']]
+ ]){
   const card=document.createElement('article');card.className='material-card';
-  const heading=document.createElement('h3');heading.textContent=title;
-  const lesson=document.createElement('h4');lesson.textContent='Урок 1';
-  const topic=document.createElement('p');topic.textContent=theme;
-  card.append(heading,lesson,topic);
-  for(const [suffix,label] of [['slides','Презентация · PDF'],['notes','Пояснения · PDF']]){
-   const link=document.createElement('a');link.href='./materials/'+slug+'-lesson-1-'+suffix+'.pdf';
-   link.target='_blank';link.rel='noopener noreferrer';link.textContent=label;
-   card.append(link);
-  }
+  const heading=document.createElement('h3');heading.textContent=title;card.append(heading);
+  themes.forEach((theme,index)=>{
+   const section=document.createElement('section');section.className='material-lesson';
+   const lesson=document.createElement('h4');lesson.textContent='Урок '+(index+1);
+   const topic=document.createElement('p');topic.textContent=theme;section.append(lesson,topic);
+   for(const [suffix,label] of [['slides','Презентация · PDF'],['notes','Пояснения · PDF']]){
+    const link=document.createElement('a');link.href='./materials/'+slug+'-lesson-'+(index+1)+'-'+suffix+'.pdf';
+    link.target='_blank';link.rel='noopener noreferrer';link.textContent=label;
+    link.setAttribute('aria-label',title+', урок '+(index+1)+', '+label);
+    section.append(link);
+   }
+   card.append(section);
+  });
   $('#materials .materials-grid').append(card);
  }
 }

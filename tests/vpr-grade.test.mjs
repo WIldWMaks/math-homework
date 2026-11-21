@@ -11,6 +11,16 @@ test('176 keys cover the source task counts and canonical automatic answers pass
   else for(const answer of key.answers)assert.equal(gradeVpr(answer,key),true,JSON.stringify(key));
  }
 });
+
+test('the original missing-square typo is not propagated from the answer PDF',()=>{
+ // Variant1 has (4-y)^2-y(y+1), while variant9 visibly has (4-y)-y(y+1).
+ assert.equal(gradeVpr('17',keys['1'][10]),true);
+ assert.equal(gradeVpr('341/81',keys['9'][10]),true);
+ assert.equal(gradeVpr('4 17/81',keys['9'][10]),true);
+ assert.equal(gradeVpr('17',keys['9'][10]),false);
+ assert.equal(gradeVpr('не хватит',keys['1'][9]),false);
+ assert.equal(gradeVpr('нет',keys['9'][9]),true);
+});
 test('numbers support fractions, decimal commas, units and explicit official intervals',()=>{
  assert.equal(gradeVpr('-14/24',{answers:['-7/12']}),true);
  assert.equal(gradeVpr('7 1/2',keys['10'][7]),true);

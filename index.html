@@ -3,39 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#aa91ff">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Домашние задания по математике для 7 класса. Алгебра и геометрия с проверкой ответов.">
-  <title>Домашние задания — математика 7 класс</title>
+  <title>Домашние задания · Математика 7 класс</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./game.css">
   <link rel="stylesheet" href="./results.css">
   <link rel="stylesheet" href="./account.css">
   <link rel="stylesheet" href="./vpr.css">
   <script type="module" src="./app.js"></script>
-  <link rel="stylesheet" href="./obby.css"><link rel="stylesheet" href="./materials.css"></head>
+  <link rel="stylesheet" href="./materials.css">
+  <link rel="stylesheet" href="./light.css">
+</head>
 <body>
   <header class="topbar"><a class="wordmark" href="#algebra">Математика</a><div class="account-bar"><span id="account-name">7 класс</span><button id="logout" type="button" hidden>Выйти</button></div></header>
   <section id="account-panel" class="account-panel" aria-labelledby="account-title">
-    <div class="account-hero"><div><p class="meta">Математика · 7 класс</p><h1 id="account-title">Выбери<br>кабинет<span class="orange">.</span></h1><p>Домашние задания по алгебре и геометрии.</p></div><div class="account-art" aria-hidden="true"></div></div>
+    <div class="account-hero"><div><p class="meta">Математика · 7 класс</p><h1 id="account-title">Личный кабинет</h1><p>Домашние задания и результаты занятий.</p></div><div class="account-art" aria-hidden="true"><span class="math-ring"></span><span class="math-plane"></span><span class="math-curve"></span><span class="math-point"></span><span class="math-symbol">x²</span></div></div>
     <div class="account-options">
-      <article class="account-card student-card"><h2>Ученик</h2><p>Решай задания, проверяй ответы<br>и проходи уровень.</p><button id="student-entry" class="entry-button" type="button">Начать без пароля</button></article>
-      <article class="account-card"><h2>Администратор</h2><p>Смотри ответы ученика,<br>ошибки и историю попыток.</p><button id="teacher-entry" class="entry-button secondary-entry" type="button">Войти с паролем</button><form id="admin-login" hidden><label for="admin-password">Пароль администратора</label><div class="admin-fields"><input id="admin-password" name="password" type="password" required maxlength="200" autocomplete="current-password"><button id="admin-submit" class="entry-button" type="submit">Войти</button></div></form></article>
+      <article class="account-card student-card"><h2>Ученик</h2><p>Открой домашнюю работу, реши задания и проверь ответы.</p><button id="student-entry" class="entry-button" type="button">Начать без пароля</button></article>
+      <article class="account-card"><h2>Администратор</h2><p>Смотри ответы ученика, ошибки и историю попыток.</p><button id="teacher-entry" class="entry-button secondary-entry" type="button">Войти с паролем</button><form id="admin-login" hidden><label for="admin-password">Пароль администратора</label><div class="admin-fields"><input id="admin-password" name="password" type="password" required maxlength="200" autocomplete="current-password"><button id="admin-submit" class="entry-button" type="submit">Войти</button></div></form></article>
     </div><p id="login-error" class="login-error" role="alert"></p>
   </section>
   <main id="learning" hidden>
-    <section class="intro"><div><h1 id="page-title">Квест:<br>домашка<span class="orange">.</span></h1><p id="page-description">Алгебра и геометрия · 7 класс</p></div><div class="intro-art" aria-hidden="true"></div></section>
+    <section class="intro"><div><h1 id="page-title">Домашние<br>задания</h1><p id="page-description">Алгебра и геометрия · 7 класс</p></div><div class="intro-art" aria-hidden="true"><span class="math-ring"></span><span class="math-plane"></span><span class="math-curve"></span><span class="math-point"></span><span class="math-symbol">x²</span></div></section>
     <section id="sync-panel" class="sync-panel" aria-label="Сохранение результатов" hidden><p id="sync-status" role="status" aria-live="polite"></p><button id="sync-retry" type="button" hidden>Повторить</button></section>
     <nav class="subjects" aria-label="Предмет"><button type="button" data-subject="algebra" aria-pressed="true">Алгебра</button><button type="button" data-subject="geometry" aria-pressed="false">Геометрия</button><button type="button" data-subject="vpr" aria-pressed="false">ВПР</button><button id="materials-tab" type="button" data-subject="materials" aria-pressed="false" hidden>Мои материалы</button></nav>
     <section id="materials" hidden aria-labelledby="materials-title"><h2 id="materials-title">Мои материалы</h2><div class="materials-grid"></div></section>
     <section id="variant-list" hidden><h2>Варианты ВПР</h2><ol></ol></section>
     <div class="workspace">
       <aside class="homeworks"><h2>Домашние работы</h2><nav aria-label="Номер домашней работы"><button class="homework active" type="button" aria-current="page"><span>01</span>Домашняя № 1</button><button class="homework" type="button" disabled><span>02</span>Скоро</button><button class="homework" type="button" disabled><span>03</span>Скоро</button><button class="homework" type="button" disabled><span>04</span>Скоро</button><button class="homework" type="button" disabled><span>05</span>Скоро</button></nav></aside>
-      <section class="assignment" aria-labelledby="assignment-title"><a id="back-to-variants" href="#vpr" hidden>← Все варианты</a><div class="assignment-head"><div><p id="task-meta" class="meta"></p><h2 id="assignment-title"></h2></div><button type="button" id="reset" class="reset">Начать заново</button></div><div class="progress-row"><span id="progress-text" role="status" aria-live="polite"></span><progress id="progress" value="0" max="10" aria-label="Правильно решено"></progress></div><button id="refresh-results" type="button" hidden>Обновить результаты</button><p id="teacher-summary" class="teacher-summary" hidden></p><p class="answer-help">Ответ можно записать дробью <b>3/4</b> или числом <b>0,75</b>. Единицы писать не нужно.</p><div id="tasks" class="tasks"></div><p id="completion" class="completion" hidden>Уровень пройден! Все ответы верные.</p><section id="history-panel" class="history-panel" hidden><h2>Последние попытки</h2><ol id="attempt-history"></ol></section></section>
+      <section class="assignment" aria-labelledby="assignment-title"><a id="back-to-variants" href="#vpr" hidden>Все варианты ВПР</a><div class="assignment-head"><div><p id="task-meta" class="meta"></p><h2 id="assignment-title"></h2></div><button type="button" id="reset" class="reset">Начать заново</button></div><div class="progress-row"><span id="progress-text" role="status" aria-live="polite"></span><progress id="progress" value="0" max="10" aria-label="Правильно решено"></progress></div><button id="refresh-results" type="button" hidden>Обновить результаты</button><p id="teacher-summary" class="teacher-summary" hidden></p><p class="answer-help">Ответ можно записать дробью <b>3/4</b> или числом <b>0,75</b>. Единицы писать не нужно.</p><div id="tasks" class="tasks"></div><p id="completion" class="completion" hidden>Все задания решены верно.</p><section id="history-panel" class="history-panel" hidden><h2>Последние попытки</h2><ol id="attempt-history"></ol></section></section>
     </div>
 
   </main>
-  <footer>Математика. По одной задаче за раз.</footer>
+  <footer>Математика · 7 класс</footer>
   <noscript>Для проверки ответов включи JavaScript в браузере.</noscript>
 </body>
 </html>
