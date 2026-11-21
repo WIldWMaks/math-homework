@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="./game.css">
   <link rel="stylesheet" href="./results.css">
   <link rel="stylesheet" href="./account.css">
-  <link rel="stylesheet" href="./archive.css">
+  <link rel="stylesheet" href="./vpr.css">
   <script type="module" src="./app.js"></script>
   <link rel="stylesheet" href="./obby.css"></head>
 <body>
@@ -24,14 +24,15 @@
     </div><p id="login-error" class="login-error" role="alert"></p>
   </section>
   <main id="learning" hidden>
-    <section class="intro"><div><h1 id="page-title">Квест:<br>домашка<span class="orange">.</span></h1><p id="page-description">Строй решение в тетради.<br> Проверяй ответы и проходи уровень.</p></div><div class="intro-art" aria-hidden="true"></div></section>
-    <section id="sync-panel" class="sync-panel" aria-label="Сохранение результатов" hidden><p id="sync-status" role="status" aria-live="polite"></p><button id="sync-retry" type="button" hidden>Повторить</button><button id="refresh-results" type="button" hidden>Обновить результаты</button></section>
+    <section class="intro"><div><h1 id="page-title">Квест:<br>домашка<span class="orange">.</span></h1><p id="page-description">Алгебра и геометрия · 7 класс</p></div><div class="intro-art" aria-hidden="true"></div></section>
+    <section id="sync-panel" class="sync-panel" aria-label="Сохранение результатов" hidden><p id="sync-status" role="status" aria-live="polite"></p><button id="sync-retry" type="button" hidden>Повторить</button></section>
     <nav class="subjects" aria-label="Предмет"><button type="button" data-subject="algebra" aria-pressed="true">Алгебра</button><button type="button" data-subject="geometry" aria-pressed="false">Геометрия</button><button type="button" data-subject="vpr" aria-pressed="false">ВПР</button></nav>
+    <section id="variant-list" hidden><h2>Варианты ВПР</h2><ol></ol></section>
     <div class="workspace">
-      <aside class="homeworks"><h2>Домашние работы</h2><nav aria-label="Номер домашней работы"><button class="homework active" type="button" aria-current="page"><span>01</span>Домашняя № 1</button><button class="homework" type="button" disabled><span>02</span>Скоро</button><button class="homework" type="button" disabled><span>03</span>Скоро</button><button class="homework" type="button" disabled><span>04</span>Скоро</button><button class="homework" type="button" disabled><span>05</span>Скоро</button></nav><p class="save-note">Ответы сохраняются<br>в этом браузере.</p></aside>
-      <section class="assignment" aria-labelledby="assignment-title"><div class="assignment-head"><div><p id="task-meta" class="meta"></p><h2 id="assignment-title"></h2></div><button type="button" id="reset" class="reset">Начать заново</button></div><div class="progress-row"><span id="progress-text" role="status" aria-live="polite"></span><progress id="progress" value="0" max="10" aria-label="Правильно решено"></progress></div><p id="teacher-summary" class="teacher-summary" hidden></p><p class="answer-help">Ответ можно записать дробью <b>3/4</b> или числом <b>0,75</b>. Единицы писать не нужно.</p><div id="tasks" class="tasks"></div><p id="completion" class="completion" hidden>Уровень пройден! Все ответы верные.</p><section id="history-panel" class="history-panel" hidden><h2>Последние попытки</h2><ol id="attempt-history"></ol></section></section>
+      <aside class="homeworks"><h2>Домашние работы</h2><nav aria-label="Номер домашней работы"><button class="homework active" type="button" aria-current="page"><span>01</span>Домашняя № 1</button><button class="homework" type="button" disabled><span>02</span>Скоро</button><button class="homework" type="button" disabled><span>03</span>Скоро</button><button class="homework" type="button" disabled><span>04</span>Скоро</button><button class="homework" type="button" disabled><span>05</span>Скоро</button></nav></aside>
+      <section class="assignment" aria-labelledby="assignment-title"><a id="back-to-variants" href="#vpr" hidden>← Все варианты</a><div class="assignment-head"><div><p id="task-meta" class="meta"></p><h2 id="assignment-title"></h2></div><button type="button" id="reset" class="reset">Начать заново</button></div><div class="progress-row"><span id="progress-text" role="status" aria-live="polite"></span><progress id="progress" value="0" max="10" aria-label="Правильно решено"></progress></div><button id="refresh-results" type="button" hidden>Обновить результаты</button><p id="teacher-summary" class="teacher-summary" hidden></p><p class="answer-help">Ответ можно записать дробью <b>3/4</b> или числом <b>0,75</b>. Единицы писать не нужно.</p><div id="tasks" class="tasks"></div><p id="completion" class="completion" hidden>Уровень пройден! Все ответы верные.</p><section id="history-panel" class="history-panel" hidden><h2>Последние попытки</h2><ol id="attempt-history"></ol></section></section>
     </div>
-    <section id="vpr-archive" class="vpr-archive" aria-labelledby="vpr-archive-title" hidden></section>
+
   </main>
   <footer>Математика. По одной задаче за раз.</footer>
   <noscript>Для проверки ответов включи JavaScript в браузере.</noscript>

@@ -1,0 +1,21 @@
+[hidden]{display:none!important}
+#variant-list{background:#fff;padding:clamp(18px,4vw,42px);border:2px solid #292929;border-radius:16px}
+#variant-list h2{margin:0 0 18px}
+#variant-list ol{padding:0;margin:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:12px}
+#variant-list li{display:flex;justify-content:space-between;align-items:center;padding:14px;border:1px solid #c7cbd1;border-radius:8px;color:#292929}
+#variant-list a,#back-to-variants{color:#204ea0;font-weight:bold}
+#variant-list a{padding:8px}
+#back-to-variants{display:inline-block;margin-bottom:16px}
+.workspace.diagnostic #tasks{grid-template-columns:1fr}
+.vpr-image{display:block;width:auto;max-width:100%;height:auto;margin:12px 0}
+.answer-help:empty{display:none}
+textarea.answer-input{min-height:5rem;width:100%;font:inherit;resize:vertical}
+#variant-list{margin-top:24px}
+#back-to-variants{color:#aeead9}
+.vpr-zoom{display:block;cursor:zoom-in;width:fit-content;max-width:100%}
+.diagnostic .task-prompt{min-height:0;margin-bottom:12px}
+.loading-variant .progress-row,.loading-variant .teacher-summary,.loading-variant .answer-help,.loading-variant .history-panel,.loading-variant #reset,.loading-variant #completion{display:none}
+.loading-variant #tasks{color:#fff}
+#refresh-results{padding:8px 12px;margin:0 0 14px;background:#eeeaff;border:1px solid #172038;border-radius:5px;color:#172038}
+.diagnostic .task p{overflow-wrap:anywhere}
+.diagnostic .assignment{min-width:0}
