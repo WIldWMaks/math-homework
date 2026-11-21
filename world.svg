@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="660" height="400" viewBox="0 0 660 400" fill="none">
   <title>Математический мир из кубиков</title>
-  <desc>Оригинальный персонаж в оранжевой футболке на парящем острове, ступени из блоков и математические знаки.</desc>
+  <desc>Оригинальный персонаж в фиолетовой футболке на парящем острове, ступени из блоков и математические знаки.</desc>
   <defs>
-    <pattern id="grid" width="35" height="35" patternUnits="userSpaceOnUse" patternTransform="matrix(1 .5 -1 .5 330 -30)"><path d="M35 0H0V35" stroke="#AFD9E7" stroke-width="1"/></pattern>
-    <g id="stud"><path d="m0 0 9-5 9 5v5l-9 5-9-5Z" fill="#AFD9E7" stroke="#292929" stroke-width="1.4"/><path d="m0 0 9 5 9-5M9 5v5" stroke="#292929" stroke-width="1.4"/></g>
-    <g id="smallblock" stroke="#292929" stroke-width="2.5" stroke-linejoin="round"><path d="m0 0 38-19 38 19-38 19Z" fill="white"/><path d="m0 0 38 19v25L0 25Z" fill="#AFD9E7"/><path d="m38 19 38-19v25L38 44Z" fill="#292929"/><path d="m22-2 16-8 16 8-16 8Z" fill="#AFD9E7" stroke-width="1.5"/></g>
+    <pattern id="grid" width="35" height="35" patternUnits="userSpaceOnUse" patternTransform="matrix(1 .5 -1 .5 330 -30)"><path d="M35 0H0V35" stroke="#59DAAE" stroke-width="1"/></pattern>
+    <g id="stud"><path d="m0 0 9-5 9 5v5l-9 5-9-5Z" fill="#59DAAE" stroke="#292929" stroke-width="1.4"/><path d="m0 0 9 5 9-5M9 5v5" stroke="#292929" stroke-width="1.4"/></g>
+    <g id="smallblock" stroke="#292929" stroke-width="2.5" stroke-linejoin="round"><path d="m0 0 38-19 38 19-38 19Z" fill="white"/><path d="m0 0 38 19v25L0 25Z" fill="#59DAAE"/><path d="m38 19 38-19v25L38 44Z" fill="#292929"/><path d="m22-2 16-8 16 8-16 8Z" fill="#59DAAE" stroke-width="1.5"/></g>
   </defs>
   <path d="M30 178 328 25l302 153-302 154Z" fill="url(#grid)" opacity=".65"/>
-  <path d="m135 320 178-82 188 91-174 65Z" fill="#AFD9E7" opacity=".3"/>
+  <path d="m135 320 178-82 188 91-174 65Z" fill="#59DAAE" opacity=".3"/>
   <!-- The distant obby has its own block geometry, not a branded asset. -->
   <g opacity=".95"><use href="#smallblock" x="486" y="141"/><use href="#smallblock" x="421" y="194"/></g>
   <use href="#smallblock" x="354" y="244"/>
   <!-- Main island. -->
   <g stroke="#292929" stroke-width="3" stroke-linejoin="round">
-    <path d="m99 268 156-78 163 81-157 79Z" fill="#AFD9E7"/>
+    <path d="m99 268 156-78 163 81-157 79Z" fill="#59DAAE"/>
     <path d="m99 268 162 82v31L99 300Z" fill="white"/>
     <path d="m261 350 157-79v32l-157 78Z" fill="#292929"/>
     <path d="m99 283 162 81M134 286v31m36-13v31m37-12v31m37-13v31" stroke-width="1.7"/>
@@ -25,38 +25,38 @@
   <g stroke="#292929" stroke-width="3" stroke-linejoin="round">
     <!-- Rear leg and boot. -->
     <path d="m276 216 29 14-1 51-29-14Z" fill="#292929"/>
-    <path d="m305 230 16-8v51l-17 8Z" fill="#AFD9E7"/>
+    <path d="m305 230 16-8v51l-17 8Z" fill="#59DAAE"/>
     <path d="m275 263 29 14 1 13-31-15Z" fill="#292929"/>
     <path d="m304 277 17-8v13l-16 8Z" fill="white"/>
     <!-- Forward leg and boot. -->
     <path d="m241 219 29 14v51l-29-15Z" fill="#292929"/>
-    <path d="m270 233 17-8v50l-17 9Z" fill="#AFD9E7"/>
+    <path d="m270 233 17-8v50l-17 9Z" fill="#59DAAE"/>
     <path d="m232 266 15-8 26 14-15 8Z" fill="white"/>
     <path d="m232 266 26 14v13l-26-13Z" fill="#292929"/>
     <path d="m258 280 15-8v13l-15 8Z" fill="white"/>
     <!-- Torso, orange with a white square badge. -->
     <path d="m234 148 53-26 45 23-52 27Z" fill="white"/>
-    <path d="m234 148 46 24v65l-46-23Z" fill="#FD612D"/>
-    <path d="m280 172 52-27v65l-52 27Z" fill="#FD612D"/>
+    <path d="m234 148 46 24v65l-46-23Z" fill="#9367FF"/>
+    <path d="m280 172 52-27v65l-52 27Z" fill="#9367FF"/>
     <path d="m280 172 52-27v65l-52 27Z" fill="#292929" opacity=".12" stroke="none"/>
     <path d="m247 171 20 10v19l-20-10Z" fill="white" stroke-width="2"/>
     <path d="m253 181 8 4m-4-6v8" stroke-width="2"/>
     <!-- Left arm. -->
     <path d="m210 157 22-11 21 11-22 11Z" fill="white"/>
-    <path d="m210 157 21 11-2 56-21-11Z" fill="#AFD9E7"/>
+    <path d="m210 157 21 11-2 56-21-11Z" fill="#59DAAE"/>
     <path d="m231 168 22-11-2 56-22 11Z" fill="white"/>
     <path d="m208 200 21 11m0 0 23-11" stroke-width="2"/>
     <!-- Raised right arm and hand. -->
     <path d="m326 147 19-10 18 9-19 10Z" fill="white"/>
-    <path d="m326 147 18 9 1 40-19-10Z" fill="#AFD9E7"/>
+    <path d="m326 147 18 9 1 40-19-10Z" fill="#59DAAE"/>
     <path d="m344 156 19-10 1 41-19 9Z" fill="white"/>
     <path d="m345 163 19-10 17 9-19 10Z" fill="white"/>
-    <path d="m345 163 17 9v24l-17-9Z" fill="#AFD9E7"/>
+    <path d="m345 163 17 9v24l-17-9Z" fill="#59DAAE"/>
     <path d="m362 172 19-10v24l-19 10Z" fill="white"/>
     <!-- Cuboid head and original block haircut. -->
     <path d="m248 90 39-20 37 19-39 20Z" fill="white"/>
     <path d="m248 90 37 19v45l-37-19Z" fill="white"/>
-    <path d="m285 109 39-20v45l-39 20Z" fill="#AFD9E7"/>
+    <path d="m285 109 39-20v45l-39 20Z" fill="#59DAAE"/>
     <path d="m246 83 40-20 39 20-40 21Z" fill="#292929"/>
     <path d="m246 83 39 21v15l-12-6v-8l-12-6v8l-15-8Z" fill="#292929"/>
     <path d="m285 104 40-21v20l-11 6v-8l-29 15Z" fill="#292929"/>
@@ -67,9 +67,9 @@
   <g transform="translate(110 107) rotate(-10)">
     <path d="M0 0h66v66H0Z" fill="#292929" transform="translate(5 6)"/>
     <path d="M0 0h66v66H0Z" fill="white" stroke="#292929" stroke-width="2.5"/>
-    <text x="15" y="45" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="37" fill="#FD612D">a²</text>
+    <text x="15" y="45" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="37" fill="#9367FF">a²</text>
   </g>
-  <g stroke="#292929" stroke-width="3" stroke-linejoin="round"><path d="M523 124V59"/><path d="m523 59 44 13-10 14-34-10Z" fill="#FD612D"/><path d="m508 131 15-8 15 8-15 8Z" fill="white"/></g>
+  <g stroke="#292929" stroke-width="3" stroke-linejoin="round"><path d="M523 124V59"/><path d="m523 59 44 13-10 14-34-10Z" fill="#9367FF"/><path d="m508 131 15-8 15 8-15 8Z" fill="white"/></g>
   <g stroke="#292929" stroke-linecap="square" stroke-width="3"><path d="M393 75v24m-12-12h24"/><path d="m567 253 13 7m-13-7-13 7m13-7v-15"/><path d="m80 202 8 4m-4-6v8"/></g>
-  <g fill="#FD612D"><path d="m440 98 6 3v7l-6-3Z"/><path d="m88 303 6 3v7l-6-3Z"/><path d="m593 174 6 3v7l-6-3Z"/></g>
+  <g fill="#9367FF"><path d="m440 98 6 3v7l-6-3Z"/><path d="m88 303 6 3v7l-6-3Z"/><path d="m593 174 6 3v7l-6-3Z"/></g>
 </svg>

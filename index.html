@@ -11,8 +11,9 @@
   <link rel="stylesheet" href="./game.css">
   <link rel="stylesheet" href="./results.css">
   <link rel="stylesheet" href="./account.css">
+  <link rel="stylesheet" href="./archive.css">
   <script type="module" src="./app.js"></script>
-</head>
+  <link rel="stylesheet" href="./obby.css"></head>
 <body>
   <header class="topbar"><a class="wordmark" href="#algebra">Математика</a><div class="account-bar"><span id="account-name">7 класс</span><button id="logout" type="button" hidden>Выйти</button></div></header>
   <section id="account-panel" class="account-panel" aria-labelledby="account-title">
@@ -28,8 +29,9 @@
     <nav class="subjects" aria-label="Предмет"><button type="button" data-subject="algebra" aria-pressed="true">Алгебра</button><button type="button" data-subject="geometry" aria-pressed="false">Геометрия</button><button type="button" data-subject="vpr" aria-pressed="false">ВПР</button></nav>
     <div class="workspace">
       <aside class="homeworks"><h2>Домашние работы</h2><nav aria-label="Номер домашней работы"><button class="homework active" type="button" aria-current="page"><span>01</span>Домашняя № 1</button><button class="homework" type="button" disabled><span>02</span>Скоро</button><button class="homework" type="button" disabled><span>03</span>Скоро</button><button class="homework" type="button" disabled><span>04</span>Скоро</button><button class="homework" type="button" disabled><span>05</span>Скоро</button></nav><p class="save-note">Ответы сохраняются<br>в этом браузере.</p></aside>
-      <section class="assignment" aria-labelledby="assignment-title"><div class="assignment-head"><div><p id="task-meta" class="meta"></p><h2 id="assignment-title"></h2></div><button type="button" id="reset" class="reset">Начать заново</button></div><div class="progress-row"><span id="progress-text" role="status" aria-live="polite"></span><progress id="progress" value="0" max="10" aria-label="Правильно решено"></progress></div><p id="teacher-summary" class="teacher-summary" hidden></p><p class="answer-help">Ответ можно записать дробью <b>3/4</b> или числом <b>0,75</b>. Единицы писать не нужно.</p><p id="vpr-archive" hidden><a href="https://skysmart.ru/vpr/7-klass/matematika" target="_blank" rel="noopener">Варианты Skysmart для дальнейшей практики</a></p><div id="tasks" class="tasks"></div><p id="completion" class="completion" hidden>Уровень пройден! Все ответы верные.</p><section id="history-panel" class="history-panel" hidden><h2>Последние попытки</h2><ol id="attempt-history"></ol></section></section>
+      <section class="assignment" aria-labelledby="assignment-title"><div class="assignment-head"><div><p id="task-meta" class="meta"></p><h2 id="assignment-title"></h2></div><button type="button" id="reset" class="reset">Начать заново</button></div><div class="progress-row"><span id="progress-text" role="status" aria-live="polite"></span><progress id="progress" value="0" max="10" aria-label="Правильно решено"></progress></div><p id="teacher-summary" class="teacher-summary" hidden></p><p class="answer-help">Ответ можно записать дробью <b>3/4</b> или числом <b>0,75</b>. Единицы писать не нужно.</p><div id="tasks" class="tasks"></div><p id="completion" class="completion" hidden>Уровень пройден! Все ответы верные.</p><section id="history-panel" class="history-panel" hidden><h2>Последние попытки</h2><ol id="attempt-history"></ol></section></section>
     </div>
+    <section id="vpr-archive" class="vpr-archive" aria-labelledby="vpr-archive-title" hidden></section>
   </main>
   <footer>Математика. По одной задаче за раз.</footer>
   <noscript>Для проверки ответов включи JavaScript в браузере.</noscript>

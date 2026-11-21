@@ -1,4 +1,17 @@
-import {subjects,diagramSVG} from './tasks.js';
+import {renderVprArchive} from './archive.js';
+import {subjects as original,diagramSVG} from './tasks.js';
+import {newHomework} from './new-homework.js';
+const subjects = {
+  algebra: {name:'Алгебра',theme:'Умножение многочленов',tasks:newHomework.algebra},
+  geometry: {name:'Геометрия',theme:'Признаки равенства треугольников',tasks:newHomework.geometry},
+  algebra2: {name:'Алгебра',theme:'Общий множитель и группировка',tasks:newHomework.algebra2},
+  geometry2: {name:'Геометрия',theme:'Равнобедренный треугольник',tasks:newHomework.geometry2},
+  vpr: original.vpr,
+};
+function selectedWork(){
+  const key=location.hash.slice(1);
+  return Object.hasOwn(subjects,key)?key:'algebra';
+}
 import {parseAnswer,isCorrect} from './checker.js';
 import {ResultSync} from './sync.js';
 import {readAccount,setBeforeLogout} from './account.js';
@@ -8,7 +21,7 @@ const storageKey=shared?'math-view-v1-'+(access.token.slice(0,18)||'student'):'m
 let sync,cloud={answers:{},history:[]},ready=!shared,saveTimer;
 let saved={};
 try {const value=JSON.parse(localStorage.getItem(storageKey)||'{}');if(value&&typeof value==='object'&&!Array.isArray(value))saved=value;}catch{}
-let current=location.hash==='#vpr'?'vpr':location.hash==='#geometry'?'geometry':'algebra';
+let current=selectedWork();
 const $=selector=>document.querySelector(selector);
 function store(){try{localStorage.setItem(storageKey,JSON.stringify(saved));}catch{}}
 function state(id){const item=saved[id];return item&&typeof item.input==='string'?item:{input:'',checked:false};}
@@ -24,9 +37,25 @@ function renderState(card,task,item){
  else {card.classList.add('checked-wrong');feedback.textContent='Пока неверно. Проверь решение и попробуй ещё раз.';card.querySelector('input').setAttribute('aria-invalid','true');}
 }
 function render(){
- const subject=subjects[current];const diagnostic=current==='vpr';document.querySelector('#vpr-archive').hidden=!(teacher && diagnostic);document.title=diagnostic?'ВПР · Стартовая работа':subject.name+' · Домашняя № 1';document.querySelector('.homeworks').hidden=diagnostic;document.querySelector('.workspace').classList.toggle('diagnostic',diagnostic);
- document.querySelectorAll('[data-subject]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.subject===current)));
- $('#task-meta').textContent=`${diagnostic ? "Авторская диагностика · Решай без калькулятора" : "Домашняя № 1"} · ${subject.tasks.length} заданий · ${subject.time}`;$('#assignment-title').textContent=subject.theme;
+ const subject=subjects[current];const diagnostic=current==='vpr';renderVprArchive({teacher,visible:diagnostic});document.title=diagnostic?'ВПР · Стартовая работа':subject.name+' · Домашняя № 1';document.querySelector('.homeworks').hidden=diagnostic;document.querySelector('.workspace').classList.toggle('diagnostic',diagnostic);
+ const section=current.replace(/2$/,'');
+ const number=current.endsWith('2')?2:1;
+ document.querySelectorAll('[data-subject]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.subject===section)));
+ if(!diagnostic){
+   document.title=subject.name+' · Домашняя № '+number;
+   const buttons=document.querySelectorAll('.homework');
+   for(let i=0;i<2;i++){
+     const button=buttons[i];
+     button.disabled=false;
+     button.innerHTML='<span>0'+(i+1)+'</span>Домашняя № '+(i+1);
+     button.classList.toggle('active',i+1===number);
+     if(i+1===number)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
+     button.onclick=()=>{current=section+(i?'2':'');history.replaceState(null,'',subjectHash());render();};
+   }
+ }
+ $('#task-meta').textContent=diagnostic?'Стартовая диагностика · 20–25 минут':'Домашняя № '+number+' · '+subject.tasks.length+' заданий';
+ $('#assignment-title').textContent=subject.theme;
+ if(!teacher)$('.answer-help').textContent=section==='geometry'?'Запиши доказательство в тетради: соответствие вершин, равные элементы и признак. В поле введи число из последнего вопроса.':section==='algebra'?'Запиши преобразования в тетради. В поле введи запрошенное число.':'Решай без калькулятора. Ответ можно ввести числом или дробью.';
  const container=$('#tasks');container.replaceChildren();
  subject.tasks.forEach((task,index)=>{
   const card=document.createElement('article');card.className='task';card.dataset.taskId=task.id;
@@ -55,7 +84,7 @@ function renderTeacherSummary(){
 }
 function subjectHash(){return '#'+current;}
 document.querySelectorAll('[data-subject]').forEach(button=>button.addEventListener('click',()=>{current=button.dataset.subject;history.replaceState(null,'',subjectHash());render();}));
-window.addEventListener('hashchange',()=>{current=location.hash==='#vpr'?'vpr':location.hash==='#geometry'?'geometry':'algebra';render();});
+window.addEventListener('hashchange',()=>{current=selectedWork();render();});
 $('#reset').addEventListener('click',()=>{if(teacher||!ready||!confirm('Стереть ответы в этой домашней работе и начать заново?'))return;for(const task of subjects[current].tasks){if(shared){saved[task.id]={input:'',checked:false};sync.enqueue(task.id,'',false);}else delete saved[task.id];}store();render();if(shared)void sync.flush();});
 if(shared){
  $('#sync-panel').hidden=false;$('.save-note').textContent=teacher?'Ответы ученика обновляются автоматически.':'Ответы сохраняются онлайн.';
