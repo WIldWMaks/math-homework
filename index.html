@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#FD612D">
+  <meta name="theme-color" content="#aa91ff">
   <meta name="description" content="Домашние задания по математике для 7 класса. Алгебра и геометрия с проверкой ответов.">
   <title>Домашние задания — математика 7 класс</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="./account.css">
   <link rel="stylesheet" href="./vpr.css">
   <script type="module" src="./app.js"></script>
-  <link rel="stylesheet" href="./obby.css"></head>
+  <link rel="stylesheet" href="./obby.css"><link rel="stylesheet" href="./materials.css"></head>
 <body>
   <header class="topbar"><a class="wordmark" href="#algebra">Математика</a><div class="account-bar"><span id="account-name">7 класс</span><button id="logout" type="button" hidden>Выйти</button></div></header>
   <section id="account-panel" class="account-panel" aria-labelledby="account-title">
@@ -26,7 +26,8 @@
   <main id="learning" hidden>
     <section class="intro"><div><h1 id="page-title">Квест:<br>домашка<span class="orange">.</span></h1><p id="page-description">Алгебра и геометрия · 7 класс</p></div><div class="intro-art" aria-hidden="true"></div></section>
     <section id="sync-panel" class="sync-panel" aria-label="Сохранение результатов" hidden><p id="sync-status" role="status" aria-live="polite"></p><button id="sync-retry" type="button" hidden>Повторить</button></section>
-    <nav class="subjects" aria-label="Предмет"><button type="button" data-subject="algebra" aria-pressed="true">Алгебра</button><button type="button" data-subject="geometry" aria-pressed="false">Геометрия</button><button type="button" data-subject="vpr" aria-pressed="false">ВПР</button></nav>
+    <nav class="subjects" aria-label="Предмет"><button type="button" data-subject="algebra" aria-pressed="true">Алгебра</button><button type="button" data-subject="geometry" aria-pressed="false">Геометрия</button><button type="button" data-subject="vpr" aria-pressed="false">ВПР</button><button id="materials-tab" type="button" data-subject="materials" aria-pressed="false" hidden>Мои материалы</button></nav>
+    <section id="materials" hidden aria-labelledby="materials-title"><h2 id="materials-title">Мои материалы</h2><div class="materials-grid"></div></section>
     <section id="variant-list" hidden><h2>Варианты ВПР</h2><ol></ol></section>
     <div class="workspace">
       <aside class="homeworks"><h2>Домашние работы</h2><nav aria-label="Номер домашней работы"><button class="homework active" type="button" aria-current="page"><span>01</span>Домашняя № 1</button><button class="homework" type="button" disabled><span>02</span>Скоро</button><button class="homework" type="button" disabled><span>03</span>Скоро</button><button class="homework" type="button" disabled><span>04</span>Скоро</button><button class="homework" type="button" disabled><span>05</span>Скоро</button></nav></aside>

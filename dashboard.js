@@ -11,7 +11,7 @@ const subjects = {
 };
 function selectedWork(){
   const key=location.hash.slice(1);
-  return key==="vpr"||Object.hasOwn(subjects,key)?key:'algebra';
+  return key==="vpr"||(key==="materials"&&teacher)||Object.hasOwn(subjects,key)?key:'algebra';
 }
 import {parseAnswer,isCorrect} from './checker.js';
 import {ResultSync} from './sync.js';
@@ -60,6 +60,14 @@ function renderState(card,task,item){
  else {card.classList.add('checked-wrong');feedback.textContent='Пока неверно. Попробуй ещё раз.';card.querySelector('.answer-input').setAttribute('aria-invalid','true');}
 }
 function render(){
+ const materials=current==='materials'&&teacher;
+ $('#materials').hidden=!materials;
+ if(materials){
+   document.title='Мои материалы · Математика';
+   $('.intro').hidden=true;$('#variant-list').hidden=true;$('.workspace').hidden=true;
+   document.querySelectorAll('[data-subject]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.subject==='materials')));
+   return;
+ }
  const listing=current==='vpr', diagnostic=listing||current.startsWith('vpr-');
  const section=diagnostic?'vpr':current.replace(/2$/,'');
  document.querySelectorAll('[data-subject]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.subject===section)));
@@ -130,6 +138,22 @@ function renderTeacherSummary(){
  const list=$('#attempt-history');list.replaceChildren();const entries=(cloud.history||[]).filter(e=>tasks.some(t=>t.id===e.taskId)).slice(0,20);for(const item of entries){const li=document.createElement('li');li.textContent=`${formatDate(item.at)} · Задание ${tasks.findIndex(t=>t.id===item.taskId)+1} · Ответ: ${item.input||'пусто'} · ${item.correct==null?'на проверке':item.correct?'верно':'неверно'}`;list.append(li);}if(!entries.length){const li=document.createElement('li');li.textContent='Проверенных ответов пока нет.';list.append(li);}
 }
 
+$('#materials-tab').hidden=!teacher;
+if(teacher){
+ for(const [slug,title,theme] of [['algebra','Алгебра','Умножение многочленов'],['geometry','Геометрия','Признаки равенства треугольников']]){
+  const card=document.createElement('article');card.className='material-card';
+  const heading=document.createElement('h3');heading.textContent=title;
+  const lesson=document.createElement('h4');lesson.textContent='Урок 1';
+  const topic=document.createElement('p');topic.textContent=theme;
+  card.append(heading,lesson,topic);
+  for(const [suffix,label] of [['slides','Презентация · PDF'],['notes','Пояснения · PDF']]){
+   const link=document.createElement('a');link.href='./materials/'+slug+'-lesson-1-'+suffix+'.pdf';
+   link.target='_blank';link.rel='noopener noreferrer';link.textContent=label;
+   card.append(link);
+  }
+  $('#materials .materials-grid').append(card);
+ }
+}
 document.querySelectorAll('[data-subject]').forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.subject;}));
 for(const [route,variant] of Object.entries(vprSubjects)){
  const row=document.createElement('li'),name=document.createElement('strong'),link=document.createElement('a');
@@ -139,7 +163,7 @@ window.addEventListener('hashchange',()=>{current=selectedWork();render();});
 $('#reset').addEventListener('click',()=>{if(teacher||!ready||!confirm('Стереть ответы в этой домашней работе и начать заново?'))return;for(const task of subjects[current].tasks){if(shared){saved[task.id]={input:'',checked:false};sync.enqueue(task.id,'',false);}else delete saved[task.id];}store();render();if(shared)void sync.flush();});
 if(shared){
  if(teacher){$('#page-title').textContent='Результаты ученика';$('#page-description').textContent='Ответы и история попыток. Обновление каждые 10 секунд.';$('#reset').hidden=true;$('.answer-help').hidden=true;$('#teacher-summary').hidden=false;$('#history-panel').hidden=false;$('#refresh-results').hidden=false;}
- sync=new ResultSync({baseUrl:SYNC_CONFIG.baseUrl,token:access.token,role:access.role,onChange(value){cloud=value;saved=value.answers;store();if(current==="vpr")return;if(teacher||!ready){render();return;}for(const task of subjects[current].tasks){const card=document.querySelector(`[data-task-id="${task.id}"]`),input=card?.querySelector('.answer-input');if(input){if(input.value!==state(task.id).input)input.value=state(task.id).input;renderState(card,task,state(task.id));}}updateProgress();},onStatus(value){
+ sync=new ResultSync({baseUrl:SYNC_CONFIG.baseUrl,token:access.token,role:access.role,onChange(value){cloud=value;saved=value.answers;store();if(current==="vpr"||current==="materials")return;if(teacher||!ready){render();return;}for(const task of subjects[current].tasks){const card=document.querySelector(`[data-task-id="${task.id}"]`),input=card?.querySelector('.answer-input');if(input){if(input.value!==state(task.id).input)input.value=state(task.id).input;renderState(card,task,state(task.id));}}updateProgress();},onStatus(value){
   $('#sync-panel').dataset.state=value;const messages={offline:'Нет связи. Ответы сохранены в браузере.',conflict:'Ответ изменён на другом устройстве. Твой ввод сохранён здесь. Можно явно заменить ответ на сервере.', 'invalid-link':'Время входа истекло. Выйди и войди с паролем ещё раз.','storage-error':'Браузер не смог сохранить копию. Не закрывай страницу до отправки.'};$('#sync-panel').hidden=!Object.hasOwn(messages,value);$('#sync-status').textContent=messages[value]||'';$('#sync-retry').hidden=teacher||!['offline','conflict'].includes(value);$('#sync-retry').textContent=value==='conflict'?'Отправить мой вариант':'Повторить';
  }});
  $('#sync-retry').addEventListener('click',()=>{if(sync.status==='conflict'){if(confirm('Заменить ответ на сервере твоим вариантом с этого устройства?'))void sync.flush({overwrite:true});}else void sync.refresh();});$('#refresh-results').addEventListener('click',()=>void sync.refresh());
