@@ -5,7 +5,7 @@ import {newHomework} from './new-homework.js';
 const subjects = {
   algebra: {name:'Алгебра',theme:'Умножение многочленов',tasks:newHomework.algebra},
   geometry: {name:'Геометрия',theme:'Признаки равенства треугольников',tasks:newHomework.geometry},
-  algebra2: {name:'Алгебра',theme:'Общий множитель и группировка',tasks:newHomework.algebra2},
+  algebra2: {name:'Алгебра',theme:'Многочлены: практика и разложение на множители',tasks:newHomework.algebra2},
   geometry2: {name:'Геометрия',theme:'Равнобедренный треугольник',tasks:newHomework.geometry2},
   ...vprSubjects,
 };
@@ -113,7 +113,7 @@ function render(){
  const container=$('#tasks');container.replaceChildren();
  subject.tasks.forEach((task,index)=>{
   const card=document.createElement('article');card.className='task';card.dataset.taskId=task.id;
-  const head=document.createElement('div');head.className='task-number';head.innerHTML=`<span>Задание ${index+1}</span><span class="task-status" aria-hidden="true"></span>`;card.append(head);
+  const head=document.createElement('div');head.className='task-number';head.innerHTML=`<span>Задание ${index+1}${task.optional?" · Резерв":""}</span><span class="task-status" aria-hidden="true"></span>`;card.append(head);
   if(task.images){for(const [part,src] of task.images.entries()){const img=document.createElement('img');img.src=src;img.alt=(task.imageAlts?.[part]||(part===0?task.alt:'Продолжение условия'))||('Условие задания '+(index+1));img.className='vpr-image';img.loading=index<2?'eager':'lazy';const zoom=document.createElement('a');zoom.className='vpr-zoom';zoom.href=src;zoom.target='_blank';zoom.rel='noopener noreferrer';zoom.title='Увеличить условие';zoom.append(img);card.append(zoom);}}
   if(task.math){const expression=document.createElement('div');expression.className='expression';expression.setAttribute('role','math');expression.setAttribute('aria-label',task.accessible);expression.innerHTML=task.math;expression.querySelector('math').setAttribute('aria-hidden','true');card.append(expression);}
   if(task.prompt){const prompt=document.createElement('p');prompt.className='task-prompt';prompt.textContent=task.prompt;card.append(prompt);}
@@ -141,7 +141,7 @@ function renderTeacherSummary(){
 $('#materials-tab').hidden=!teacher;
 if(teacher){
  for(const [slug,title,themes] of [
-  ['algebra','Алгебра',['Умножение многочленов','Общий множитель и группировка']],
+  ['algebra','Алгебра',['Умножение многочленов','Многочлены: практика и разложение на множители']],
   ['geometry','Геометрия',['Признаки равенства треугольников','Равнобедренный треугольник']]
  ]){
   const card=document.createElement('article');card.className='material-card';

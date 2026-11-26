@@ -9,3 +9,20 @@ test('offline очередь переживает закрытие страни�
 test('учитель не пишет ответы; конфликт не перезаписывает чужой результат',async()=>{const api=fakeApi(),store=storage();const sync=new ResultSync({baseUrl:'https://x',token:'token',storage:store,fetcher:api.fetch});await sync.start();sync.enqueue('a1','old',true);await api.fetch('https://x/api/change',{method:'POST',body:JSON.stringify({taskId:'a1',input:'new',checked:true,baseRevision:0,eventId:'different-event'})});await sync.flush();assert.equal(sync.status,'conflict');assert.equal(api.answers().a1.input,'new');assert.equal(sync.snapshot().answers.a1.input,'old');const teacher=new ResultSync({baseUrl:'https://x',token:'teacher',role:'teacher',storage:storage(),fetcher:api.fetch});await teacher.start();assert.throws(()=>teacher.enqueue('a1','bad',true),/read.only/);});
 
 test('потерянное подтверждение черновика не теряет следующую проверку после перезагрузки',async()=>{const api=fakeApi(),store=storage();let lose=true;const fetcher=async(url,options)=>{const result=await api.fetch(url,options);if(options?.method&&lose){lose=false;throw new Error('response lost');}return result;};const sync=new ResultSync({baseUrl:'https://x',token:'token',storage:store,fetcher});await sync.start();sync.enqueue('a1','1',false);await sync.flush();assert.equal(sync.status,'offline');const reopened=new ResultSync({baseUrl:'https://x',token:'token',storage:store,fetcher});reopened.enqueue('a1','12',true);assert.equal(reopened.pending.length,2);await reopened.start();assert.equal(api.answers().a1.input,'12');assert.equal(api.answers().a1.checked,true);assert.equal(api.attempts(),1);assert.equal(reopened.pending.length,0);});
+
+test('новая домашняя u1-u15 восстанавливает очередь после перезагрузки',async()=>{
+ const api=fakeApi(),store=storage();
+ const first=new ResultSync({baseUrl:'https://x',token:'token',storage:store,fetcher:api.fetch});
+ await first.start();
+ api.offline(true);
+ first.enqueue('u4','26/3',true);
+ first.enqueue('u15','-48',true);
+ await first.flush();
+ const reopened=new ResultSync({baseUrl:'https://x',token:'token',storage:store,fetcher:api.fetch});
+ assert.equal(reopened.pending.length,2);
+ api.offline(false);
+ await reopened.start();
+ assert.equal(api.answers().u4.input,'26/3');
+ assert.equal(api.answers().u15.input,'-48');
+ assert.equal(reopened.pending.length,0);
+});
