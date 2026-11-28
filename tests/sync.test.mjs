@@ -26,3 +26,17 @@ test('новая домашняя u1-u15 восстанавливает очер
  assert.equal(api.answers().u15.input,'-48');
  assert.equal(reopened.pending.length,0);
 });
+
+test('третьи домашние по обоим предметам сохраняют очередь после перезагрузки',async()=>{
+ const api=fakeApi(),store=storage();
+ const first=new ResultSync({baseUrl:'https://x',token:'token',storage:store,fetcher:api.fetch});
+ await first.start();api.offline(true);
+ first.enqueue('l3a15','-2',true);first.enqueue('l3g10','35',true);
+ await first.flush();
+ const restored=new ResultSync({baseUrl:'https://x',token:'token',storage:store,fetcher:api.fetch});
+ assert.equal(restored.pending.length,2);
+ api.offline(false);await restored.start();
+ assert.equal(api.answers().l3a15.input,'-2');
+ assert.equal(api.answers().l3g10.input,'35');
+ assert.equal(restored.pending.length,0);
+});

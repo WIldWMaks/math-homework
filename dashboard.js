@@ -2,11 +2,14 @@ import {vprSubjects, loadVpr} from './vpr.js';
 import {gradeVpr} from './vpr-grade.js';
 import {diagramSVG} from './tasks.js';
 import {newHomework} from './new-homework.js';
+import {lesson3} from './lesson3.js';
 const subjects = {
   algebra: {name:'Алгебра',theme:'Умножение многочленов',tasks:newHomework.algebra},
   geometry: {name:'Геометрия',theme:'Признаки равенства треугольников',tasks:newHomework.geometry},
   algebra2: {name:'Алгебра',theme:'Многочлены: практика и разложение на множители',tasks:newHomework.algebra2},
   geometry2: {name:'Геометрия',theme:'Равнобедренный треугольник',tasks:newHomework.geometry2},
+  algebra3: {name:'Алгебра',theme:'Функции и графики',tasks:lesson3.algebra},
+  geometry3: {name:'Геометрия',theme:'Третий признак и смешанные задачи',tasks:lesson3.geometry},
   ...vprSubjects,
 };
 function selectedWork(){
@@ -69,13 +72,13 @@ function render(){
    return;
  }
  const listing=current==='vpr', diagnostic=listing||current.startsWith('vpr-');
- const section=diagnostic?'vpr':current.replace(/2$/,'');
+ const section=diagnostic?'vpr':current.replace(/[23]$/,'');
  document.querySelectorAll('[data-subject]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.subject===section)));
  $('.intro').hidden=diagnostic;
  $('#variant-list').hidden=!listing;
  $('.workspace').hidden=listing;
  if(listing){document.title='Варианты ВПР';$('#tasks').replaceChildren();return;}
- const subject=subjects[current],number=current.endsWith('2')?2:1;
+ const subject=subjects[current],number=Number(current.match(/[23]$/)?.[0]||1);
  document.title=subject.theme+' · '+subject.name;
  $('.homeworks').hidden=diagnostic;
  $('.workspace').classList.toggle('diagnostic',diagnostic);
@@ -98,13 +101,13 @@ function render(){
  if(!diagnostic){
    document.title=subject.name+' · Домашняя № '+number;
    const buttons=document.querySelectorAll('.homework');
-   for(let i=0;i<2;i++){
+   for(let i=0;i<3;i++){
      const button=buttons[i];
      button.disabled=false;
      button.innerHTML='<span>0'+(i+1)+'</span>Домашняя № '+(i+1);
      button.classList.toggle('active',i+1===number);
      if(i+1===number)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
-     button.onclick=()=>{location.hash=section+(i?'2':'');};
+     button.onclick=()=>{location.hash=section+(i?String(i+1):'');};
    }
  }
  $('#task-meta').textContent=diagnostic?'ВПР · 7 класс':'Домашняя № '+number+' · '+subject.tasks.length+' заданий';
@@ -114,7 +117,11 @@ function render(){
  subject.tasks.forEach((task,index)=>{
   const card=document.createElement('article');card.className='task';card.dataset.taskId=task.id;
   const head=document.createElement('div');head.className='task-number';head.innerHTML=`<span>Задание ${index+1}${task.optional?" · Резерв":""}</span><span class="task-status" aria-hidden="true"></span>`;card.append(head);
-  if(task.images){for(const [part,src] of task.images.entries()){const img=document.createElement('img');img.src=src;img.alt=(task.imageAlts?.[part]||(part===0?task.alt:'Продолжение условия'))||('Условие задания '+(index+1));img.className='vpr-image';img.loading=index<2?'eager':'lazy';const zoom=document.createElement('a');zoom.className='vpr-zoom';zoom.href=src;zoom.target='_blank';zoom.rel='noopener noreferrer';zoom.title='Увеличить условие';zoom.append(img);card.append(zoom);}}
+  if(task.images){for(const [part,src] of task.images.entries()){const img=document.createElement('img');img.src=src;img.alt=(task.imageAlts?.[part]||(part===0?task.alt:'Продолжение условия'))||('Условие задания '+(index+1));img.className='vpr-image';img.loading=index<2?'eager':'lazy';const zoom=document.createElement('a');zoom.className='vpr-zoom';zoom.href=src;zoom.target='_blank';zoom.rel='noopener noreferrer';zoom.title='Увеличить условие';zoom.append(img);
+   if(src.includes('lesson3-media/')&&src.includes('-graph')){
+    const label=document.createElement('span');label.className='graph-zoom-label';label.textContent='Увеличить график';zoom.append(label);
+   }
+   card.append(zoom);}}
   if(task.math){const expression=document.createElement('div');expression.className='expression';expression.setAttribute('role','math');expression.setAttribute('aria-label',task.accessible);expression.innerHTML=task.math;expression.querySelector('math').setAttribute('aria-hidden','true');card.append(expression);}
   if(task.prompt){const prompt=document.createElement('p');prompt.className='task-prompt';prompt.textContent=task.prompt;card.append(prompt);}
   if(task.diagram){const diagram=document.createElement('div');diagram.className='diagram';diagram.innerHTML=diagramSVG(task.diagram);card.append(diagram);}
@@ -141,8 +148,8 @@ function renderTeacherSummary(){
 $('#materials-tab').hidden=!teacher;
 if(teacher){
  for(const [slug,title,themes] of [
-  ['algebra','Алгебра',['Умножение многочленов','Многочлены: практика и разложение на множители']],
-  ['geometry','Геометрия',['Признаки равенства треугольников','Равнобедренный треугольник']]
+  ['algebra','Алгебра',['Умножение многочленов','Многочлены: практика и разложение на множители','Функции и графики']],
+  ['geometry','Геометрия',['Признаки равенства треугольников','Равнобедренный треугольник','Третий признак и смешанные задачи']]
  ]){
   const card=document.createElement('article');card.className='material-card';
   const heading=document.createElement('h3');heading.textContent=title;card.append(heading);

@@ -169,3 +169,6 @@ noscript{max-width:1200px;margin:auto;color:var(--muted)}
 #variant-list a{display:inline-flex;align-items:center;min-height:44px;padding:8px 0}
 .subjects button,.homework:not(:disabled),#logout,.reset{min-height:44px}
 @media(max-width:760px){.homework:not(:disabled){font-size:14px}}
+
+.graph-zoom-label{display:block;margin:0 0 12px;color:var(--accent);font-size:14px;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.homework:not(:disabled){flex-shrink:0}}
